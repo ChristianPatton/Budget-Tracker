@@ -2,19 +2,20 @@ const express = require("express");
 const app = express();
 const port = 9000;
 const cors = require("cors");
-const expenseRoute = require("/routes/expense");
+const expenseRoute = require("./routes/expense");
+let liveDB = false;
 
 app.use(cors())
+app.use((req, res, next) => {
+  liveDB = req.params.liveDB;
+});
+
+app.use('/expense', expenseRoute);
 
 app.get('/', (req, res) => {
-    res.json({
-        expense: 'Groceries',
-        budgetAmount: 500
-    })
-  })
+  res.send("Welcome to the Budget Tracker")
+});
 
-  app.route("/expense", expenseRoute)
-  
-  app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-  })
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`)
+})

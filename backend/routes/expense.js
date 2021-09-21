@@ -3,12 +3,13 @@ const expense = express.Router()
 
 expense.get("/", (req, res) => {
     res.send("Expenses:")
-})
+});
 
-expense.post("/add/:id", (req, res) => {
+expense.post("/add", (req, res) => {
     let expenseObj = req.params
-    localStorage.setItem("expense_" + req.params.id, expenseObj)
+    if(liveDB)
+    
     console.log(expenseObj)
-})
+});
 
 module.exports = expense;
